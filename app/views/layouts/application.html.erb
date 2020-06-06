@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SHOGO</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+  <nav>
+    <div class="header-logo">
+        <%= link_to("TweetApp", "/") %>
+      </div>
+    <ul class="header-menus">
+      <% unless user_signed_in? %>
+        <li>
+          <%= link_to '新規登録', new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to 'ログイン', new_user_session_path %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        </li>
+        <li>
+          <%= link_to("TweetAppとは", "/about") %>
+        </li>
+        <li>
+          <%= link_to("投稿一覧", "/posts/index") %>
+        </li>
+        <li>
+          <%= link_to("新規投稿", "/posts/new") %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
+<!-- flash[:notice]に代入されたメッセージを表示してください -->
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
